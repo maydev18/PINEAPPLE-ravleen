@@ -168,7 +168,8 @@ const Demo = () => {
               order.orderID === updatedOrder.orderID ? updatedOrder : order
             )
           );
-          socket.on("newOrder", (newOrder) => {
+        });
+        socket.on("newOrder", (newOrder) => {
             setOrders((orders) => {
               const exists = orders.some(
                 (order) => order.orderID === newOrder.orderID
@@ -176,9 +177,7 @@ const Demo = () => {
           
               return exists ? orders : [newOrder, ...orders];
             });
-          });
         });
-    
         // Clean up the socket listener when the component unmounts
         return () => {
           socket.off("orderStatusUpdated");
